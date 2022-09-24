@@ -10,39 +10,29 @@ import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
   final int originalTileSize = 16;
-  
   final int scale = 3;
   
-  public final int tileSize = 48;
-  
+  public final int tileSize = originalTileSize * scale;
   public final int maxScreenCol = 16;
-  
   public final int maxScreenRow = 12;
   
-  public final int screenWidth = 768;
-  
-  public final int screenHeight = 576;
+  public final int screenWidth = tileSize * maxScreenCol;
+  public final int screenHeight = tileSize * maxScreenRow;
   
   public final int maxWorldCol = 44;
-  
   public final int maxWorldRow = 26;
-  
-  public final int worldWidth = 2112;
-  
-  public final int worldHeight = 1248;
+  public final int worldWidth = tileSize * maxWorldCol;
+  public final int worldHeight = tileSize * maxWorldRow;
   
   int FPS = 60;
   
   KeyHandler keyH = new KeyHandler();
-  
   Thread gameThread;
-  
   public Player player = new Player(this, this.keyH);
-  
   TileManager tileManager = new TileManager(this);
   
   public GamePanel() {
-    setPreferredSize(new Dimension(768, 576));
+    setPreferredSize(new Dimension(screenWidth, screenHeight));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
     addKeyListener(this.keyH);
@@ -56,25 +46,25 @@ public class GamePanel extends JPanel implements Runnable {
   
   public void run() {
     double drawInterval = (1000000000 / this.FPS);
-    double delta = 0.0D;
+    double delta = 0;
     long lastTime = System.nanoTime();
-    long timer = 0L;
+    long timer = 0;
     int drawCount = 0;
+    
     while (this.gameThread != null) {
       long currentTime = System.nanoTime();
       delta += (currentTime - lastTime) / drawInterval;
       timer += currentTime - lastTime;
       lastTime = currentTime;
-      if (delta >= 1.0D) {
+      if (delta >= 1) {
         update();
         repaint();
         delta--;
         drawCount++;
       } 
-      if (timer >= 1000000000L) {
-        System.out.println("FPS: " + drawCount);
+      if (timer >= 1000000000) {
         drawCount = 0;
-        timer = 0L;
+        timer = 0;
       } 
     } 
   }

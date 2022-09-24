@@ -16,25 +16,34 @@ public class KeyHandler implements KeyListener {
   
   public void keyPressed(KeyEvent e) {
     int code = e.getKeyCode();
-    if (code == 87)
+    
+    if (code == KeyEvent.VK_W)
       this.upPressed = true; 
-    if (code == 65)
+    
+    if (code == KeyEvent.VK_A)
       this.leftPressed = true; 
-    if (code == 83)
+    
+    if (code == KeyEvent.VK_S)
       this.downPressed = true; 
-    if (code == 68)
+    
+    if (code == KeyEvent.VK_D)
       this.rightPressed = true; 
   }
   
   public void keyReleased(KeyEvent e) {
     int code = e.getKeyCode();
-    if (code == 87)
+    
+    if (code == KeyEvent.VK_W)
       this.upPressed = false; 
-    if (code == 65)
+    
+    if (code == KeyEvent.VK_A)
       this.leftPressed = false; 
-    if (code == 83)
+    
+    if (code == KeyEvent.VK_S)
       this.downPressed = false; 
-    if (code == 68)
+    
+    if (code == KeyEvent.VK_D)
       this.rightPressed = false; 
+    
   }
 }
