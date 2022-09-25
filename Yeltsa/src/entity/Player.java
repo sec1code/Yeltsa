@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -9,44 +10,45 @@ import main.KeyHandler;
 
 public class Player extends Entity {
   GamePanel gp;
-  
   KeyHandler keyH;
-  
   public final int screenX;
-  
   public final int screenY;
   
   public Player(GamePanel gp, KeyHandler keyH) {
     this.gp = gp;
     this.keyH = keyH;
-    this.screenX = gp.screenWidth / 2 - gp.tileSize / 2;
-    this.screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+    screenX = gp.screenWidth / 2 - gp.tileSize / 2;
+    screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+    
+    //original values 4, 8, 6, 4
+    solidArea = new Rectangle(15, 24, 18, 12);
+    
     setDefaultValues();
     getPlayerImage();
   }
   
   public void setDefaultValues() {
-    this.worldX = gp.tileSize * 10;
-    this.worldY = gp.tileSize * 10;
-    this.speed = 4;
-    this.direction = "down";
-    this.standing = true;
+    worldX = gp.tileSize * 10;
+    worldY = gp.tileSize * 10;
+    speed = 4;
+    direction = "down";
+    standing = true;
   }
   
   public void getPlayerImage() {
     try {
-      this.up = ImageIO.read(getClass().getResourceAsStream("/player/Player_Up_1.png"));
-      this.left = ImageIO.read(getClass().getResourceAsStream("/player/Player_Left_1.png"));
-      this.down = ImageIO.read(getClass().getResourceAsStream("/player/Player_Down_1.png"));
-      this.right = ImageIO.read(getClass().getResourceAsStream("/player/Player_Right_1.png"));
-      this.runUp1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Up_1.png"));
-      this.runUp2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Up_2.png"));
-      this.runLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Left_1.png"));
-      this.runLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Left_22.png"));
-      this.runDown1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Down_1.png"));
-      this.runDown2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Down_2.png"));
-      this.runRight1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Right_1.png"));
-      this.runRight2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Right_22.png"));
+      up = ImageIO.read(getClass().getResourceAsStream("/player/Player_Up_1.png"));
+      left = ImageIO.read(getClass().getResourceAsStream("/player/Player_Left_1.png"));
+      down = ImageIO.read(getClass().getResourceAsStream("/player/Player_Down_1.png"));
+      right = ImageIO.read(getClass().getResourceAsStream("/player/Player_Right_1.png"));
+      runUp1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Up_1.png"));
+      runUp2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Up_2.png"));
+      runLeft1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Left_1.png"));
+      runLeft2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Left_22.png"));
+      runDown1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Down_1.png"));
+      runDown2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Down_2.png"));
+      runRight1 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Right_1.png"));
+      runRight2 = ImageIO.read(getClass().getResourceAsStream("/player/Player_Run_Right_22.png"));
     } catch (IOException e) {
       e.printStackTrace();
     } 
