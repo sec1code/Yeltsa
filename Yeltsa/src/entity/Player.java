@@ -20,16 +20,19 @@ public class Player extends Entity {
     screenX = gp.screenWidth / 2 - gp.tileSize / 2;
     screenY = gp.screenHeight / 2 - gp.tileSize / 2;
     
-    //original values 4, 8, 6, 4
-    solidArea = new Rectangle(15, 24, 18, 12);
+    //original values 5, 8, 6, 4
+    //THE ORIGINAL VALUES ARE NOT TRUE
+    solidArea = new Rectangle(15, 35, 18, 12);
     
     setDefaultValues();
     getPlayerImage();
   }
   
   public void setDefaultValues() {
-    worldX = gp.tileSize * 10;
-    worldY = gp.tileSize * 10;
+	//Spawn coordinates
+    worldX = gp.tileSize * 5;
+    worldY = gp.tileSize * 5;
+    
     speed = 4;
     direction = "down";
     standing = true;
@@ -55,35 +58,56 @@ public class Player extends Entity {
   }
   
   public void update() {
-	  speed = 4;
-	  
+	//Set Speed
+	speed = 4;
+	
+	standing = false;
+	
+	//Set Direction
 	if(keyH.upPressed && keyH.leftPressed) {
 		direction = "upL";
-		updateUpL();
 	} else if(keyH.upPressed && keyH.rightPressed) {
 		direction = "upR";
-		updateUpR();
 	} else if(keyH.downPressed && keyH.leftPressed) {
 		direction = "downL";
-		updateDownL();
 	} else if(keyH.downPressed && keyH.rightPressed) {
 		direction = "downR";
-		updateDownR();
 	} else if(keyH.upPressed) {
 		direction = "up";
-		updateUp();
     } else if(keyH.leftPressed) {
     	direction = "left";
-    	updateLeft();
     } else if(keyH.downPressed) {
     	direction = "down";
-    	updateDown();
     } else if(keyH.rightPressed) {
     	direction = "right";
-      updateRight();
     } else {
       standing = true;
-    } 
+    }
+	
+	//Check Collision
+	collisionOn = false;
+	gp.coChecker.checkTile(this);
+	
+	//Only if player isn't hitting something, player moves.
+	if(collisionOn == false && standing == false) {
+		if(direction.equals("upL")) {
+			updateUpL();
+		} else if(direction.equals("upR")) {
+			updateUpR();
+		} else if(direction.equals("downL")) {
+			updateDownL();
+		} else if(direction.equals("downR")) {
+			updateDownR();
+		} else if(direction.equals("up")) {
+			updateUp();
+		} else if(direction.equals("left")) {
+	    	updateLeft();
+		} else if(direction.equals("down")) {
+	    	updateDown();
+		} else if(direction.equals("right")) {
+		      updateRight();
+		}
+	}
     
     spriteCounter++;
     if (spriteCounter > 20) {
